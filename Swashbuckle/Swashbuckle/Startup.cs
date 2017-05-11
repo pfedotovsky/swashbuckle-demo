@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.IO;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Swashbuckle
@@ -30,7 +32,7 @@ namespace Swashbuckle
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(swaggerGenOptions =>
             {
-                swaggerGenOptions.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"});
+                swaggerGenOptions.SwaggerDoc("v1", new Info());
 
                 //var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "Swashbuckle.xml");
                 //swaggerGenOptions.IncludeXmlComments(filePath);
@@ -43,18 +45,20 @@ namespace Swashbuckle
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseDefaultFiles();
+
+    //        Enable static files middleware.
+            //app.UseStaticFiles();
+
             app.UseMvc();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), 
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(swaggerUiOptions =>
+            app.UseSwagger().UseSwaggerUI(
+                swaggerUiOptions =>
             {
-                swaggerUiOptions.RoutePrefix = "help";
-                swaggerUiOptions.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
+                swaggerUiOptions.SwaggerEndpoint("/swagger/v1/swagger.json", "My API");                
+            }
+            );
         }
     }
 }

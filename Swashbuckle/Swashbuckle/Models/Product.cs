@@ -26,6 +26,6 @@ namespace Swashbuckle.Models
         /// <summary>
         ///  Is valid product.
         /// </summary>
-        public bool? Valid { get; set; }
+        public bool? Valid => false;
     }
 }

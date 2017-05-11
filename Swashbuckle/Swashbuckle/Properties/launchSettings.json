@@ -19,7 +19,7 @@
     "Swashbuckle": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "help",
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

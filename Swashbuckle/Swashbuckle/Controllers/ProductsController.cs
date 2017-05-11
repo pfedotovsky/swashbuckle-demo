@@ -30,8 +30,7 @@ namespace Swashbuckle.Controllers
                 Description = "Description",
                 Name = "Name",
                 ProductID = 1,
-                ProductTypeID = 1,
-                Valid = true
+                ProductTypeID = 1
             };
         }
 
